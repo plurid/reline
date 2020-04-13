@@ -1,0 +1,19 @@
+{
+    "name": "fixture-jsx",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "module": "build/index.js",
+    "dependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/plugin-syntax-jsx": "^7.8.3",
+        "@babel/plugin-transform-react-jsx": "^7.9.4",
+        "@babel/plugin-transform-react-jsx-self": "^7.9.0",
+        "@babel/plugin-transform-react-jsx-source": "^7.9.0",
+        "rollup": "^2.6.1",
+        "rollup-plugin-babel": "^4.4.0"
+    },
+    "scripts": {
+        "build": "rollup -c rollup.config.js"
+    }
+}
