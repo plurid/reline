@@ -65,7 +65,87 @@ Reline.Diagram()
 Reline.Domain()
 Reline.Fluent()
 
-Reline.render(
+Reline.Render(
     <App />,
     'root',
 );
+
+
+
+/**
+ * Actor Model Theory
+ *
+ * each component is an actor
+ * each actor:
+ *     + sends/receives messages
+ *     + generates new actors
+ *     + affects local state
+ */
+
+
+class RelineActor {
+    /**
+     * Listens for messages.
+     */
+    listen() {
+
+    }
+
+    /**
+     * Send message to another Actor
+     */
+    message(
+        target: RelineActor,
+        data: any,
+    ) {
+
+    }
+
+    /**
+     * Modify local state.
+     */
+    affect() {
+
+    }
+
+    /**
+     * Generate new Actor
+     */
+    generate() {
+
+    }
+
+    /**
+     * Answer to the next message.
+     */
+    reply() {
+
+    }
+}
+
+
+//
+// RelineTheater, RelineActor, RelineCostume
+//  |                 |              |
+//  |                 |             styling
+//  |               events holder
+//  a group of acotrs
+//
+
+
+/**
+ * To also have the idea of the Theatre altering the behaviour of the actors
+ *
+ * <TheatreOne>
+ *      <ActorOne>
+ * </TheatreOne>
+ *
+ * <TheatreTwo>
+ *      <ActorOne>
+ * </TheatreTwo>
+ *
+ * The first TheatreOne will render the actor one way
+ * The second TheatreTwo will render the actor another way
+ *
+ *
+ */
