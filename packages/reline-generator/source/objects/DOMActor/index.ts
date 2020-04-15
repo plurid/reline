@@ -30,6 +30,13 @@ class RelineDOMActor<S, B extends Record<string, Function>> extends RelineBaseAc
             },
         );
     }
+
+    public send<D>(
+        target: symbol,
+        message: RelineMethodMessage<B, D>,
+    ) {
+
+    }
 }
 
 
