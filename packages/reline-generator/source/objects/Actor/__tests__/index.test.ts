@@ -8,10 +8,10 @@ import BaseActor from '../';
 
 describe('RelineActor', () => {
     it.only('sends a message', () => {
-        const mailbox = new EventEmitter();
+        const emitter = new EventEmitter();
 
         const actorOne = new BaseActor(
-            mailbox,
+            emitter,
             {
                 initialize: () => {
                     return { count: 0 };
@@ -36,7 +36,7 @@ describe('RelineActor', () => {
         const actorOneAddress = actorOne.getAddress();
 
         const actorTwo = new BaseActor(
-            mailbox,
+            emitter,
             {
                 initialize: () => {
                     return {
@@ -49,15 +49,16 @@ describe('RelineActor', () => {
             },
         );
 
-        actorTwo.send(actorOneAddress, ["logTotal"] as any);
+        // Log the current state
+        actorTwo.send(actorOneAddress, ['logTotal'] as any);
 
         // Increment the counter by 2
-        actorTwo.send(actorOneAddress, ["incrementBy", { number: 2 }]);
+        actorTwo.send(actorOneAddress, ['incrementBy', { number: 2 }] as any);
 
         // Log the current state
-        actorTwo.send(actorOneAddress, ["logTotal"] as any); // => { count: 2 }
+        actorTwo.send(actorOneAddress, ['logTotal'] as any); // => { count: 2 }
 
         const actorTwoAddress = actorTwo.getAddress();
-        actorTwo.send(actorTwoAddress, ["getState"] as any); // => { count: 2 }
+        actorTwo.send(actorTwoAddress, ['getState'] as any);
     });
 });

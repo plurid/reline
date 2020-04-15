@@ -2,39 +2,34 @@ import {
     EventEmitter,
 } from 'events';
 
+import {
+    RelineMessage,
+    RelineMethodMessage,
+} from '../../data/interfaces';
 
-
-interface RelineMessage<D> {
-    from: symbol;
-    to: symbol;
-    timestamp: number;
-    data: D;
-}
-
-type MethodMessage<B, D> = [keyof B, D];
 
 
 class RelineBaseActor<S, B extends Record<string, Function>> {
-    private mailbox: EventEmitter;
+    private emitter: EventEmitter;
     private address: symbol;
     private state: S;
     private behaviour: B;
 
     constructor(
-        mailbox: EventEmitter,
-        behaviour: any,
+        emitter: EventEmitter,
+        behaviour: B,
     ) {
-        this.mailbox = mailbox;
+        this.emitter = emitter;
         this.address = Symbol();
 
-        this.state = typeof behaviour.initialize === "function"
+        this.state = typeof behaviour.initialize === 'function'
             ? behaviour.initialize()
             : {};
         this.behaviour = behaviour;
 
-        mailbox.on(
+        emitter.on(
             this.address,
-            ([method, message]: MethodMessage<B, any>) => {
+            ([method, message]: RelineMethodMessage<B, RelineMessage<B, any>>) => {
                 if (typeof this.behaviour[method] === 'function') {
                     this.state = this.behaviour[method](
                         this.state,
@@ -45,23 +40,24 @@ class RelineBaseActor<S, B extends Record<string, Function>> {
         );
     }
 
-    getAddress() {
+    public getAddress() {
         return this.address;
     }
 
     public send<D>(
-        target: any,
-        message: MethodMessage<B, D>,
+        target: symbol,
+        message: RelineMethodMessage<B, D>,
     ) {
         const [method, data] = message;
-        const container: RelineMessage<D> = {
+        const container: RelineMessage<B, D> = {
             from: this.address,
             to: this.address,
             timestamp: Date.now(),
+            method,
             data,
         };
 
-        this.mailbox.emit(
+        this.emitter.emit(
             target,
             [method, container],
         );
