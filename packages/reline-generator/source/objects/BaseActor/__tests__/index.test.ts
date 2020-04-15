@@ -7,7 +7,7 @@ import BaseActor from '..';
 
 
 describe('RelineActor', () => {
-    it.only('sends a message', () => {
+    it('sends a message', () => {
         const emitter = new EventEmitter();
 
         const actorOne = new BaseActor(
