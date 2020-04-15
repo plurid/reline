@@ -2,7 +2,7 @@ import {
     EventEmitter,
 } from 'events';
 
-import BaseActor from '../';
+import BaseActor from '..';
 
 
 
