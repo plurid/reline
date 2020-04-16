@@ -173,8 +173,11 @@ const HeaderCostume = new Reline.Costume(
     `,
 );
 
-const headerBehaviour = {
-    useTitle: (setter: any) => {
+const headerScript = {
+    /**
+     * anything that ends with Cue is used to build upon the rendering
+     */
+    titleCue: (setter: any) => {
         return ['', setter];
     },
     state: () => {
@@ -207,10 +210,10 @@ const headerBehaviour = {
 
 const Header = new Reline.Actor(
     prompter,
-    headerBehaviour,
+    headerScript,
 );
 
-const applicationBehaviour = {
+const applicationScript = {
     state: () => {
         return {};
     },
@@ -222,7 +225,7 @@ const applicationBehaviour = {
         return (
             <div>
                 <Header
-                    title="Appliation Header"
+                    title="Application Header"
                 />
             </div>
         );
@@ -231,7 +234,7 @@ const applicationBehaviour = {
 
 const Application = new Reline.Actor(
     prompter,
-    applicationBehaviour,
+    applicationScript,
 );
 
 theatre.show(
