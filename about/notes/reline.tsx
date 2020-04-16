@@ -149,3 +149,89 @@ class RelineActor {
  *
  *
  */
+
+
+
+
+
+const theatre = new Reline.Theatre();
+
+const prompter = new Reline.Prompter();
+
+
+const HeaderCostume = new Reline.Costume(
+    'div',
+    `
+        margin: 10px;
+        background: ${(properties: RelineCostumeProperties) => {
+            if (properties.theme === 'dark') {
+                return 'black';
+            }
+
+            return 'white';
+        }};
+    `,
+);
+
+const headerBehaviour = {
+    state: () => {
+        return {
+            theme: 'dark',
+        };
+    },
+    show: (
+        state: any,
+        message: any,
+        self: any,
+    ) => {
+        const {
+            theme,
+        } = state;
+
+        const {
+            title,
+        } = self.properties;
+
+        return (
+            <HeaderCostume
+                theme={theme}
+            >
+                {title}
+            </HeaderCostume>
+        )
+    }
+};
+
+const Header = new Reline.Actor(
+    prompter,
+    headerBehaviour,
+);
+
+const applicationBehaviour = {
+    state: () => {
+        return {};
+    },
+    show: (
+        state: any,
+        message: any,
+        self: any,
+    ) => {
+        return (
+            <div>
+                <Header
+                    title="Appliation Header"
+                />
+            </div>
+        )
+    }
+};
+
+const Application = new Reline.Actor(
+    prompter,
+    applicationBehaviour,
+);
+
+theatre.show(
+    Application,
+    'root',
+);
