@@ -174,6 +174,9 @@ const HeaderCostume = new Reline.Costume(
 );
 
 const headerBehaviour = {
+    useTitle: (setter: any) => {
+        return ['', setter];
+    },
     state: () => {
         return {
             theme: 'dark',
