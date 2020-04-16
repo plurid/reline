@@ -198,8 +198,8 @@ const headerBehaviour = {
             >
                 {title}
             </HeaderCostume>
-        )
-    }
+        );
+    },
 };
 
 const Header = new Reline.Actor(
@@ -222,8 +222,8 @@ const applicationBehaviour = {
                     title="Appliation Header"
                 />
             </div>
-        )
-    }
+        );
+    },
 };
 
 const Application = new Reline.Actor(
